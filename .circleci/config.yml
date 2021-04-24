@@ -1,0 +1,14 @@
+version: 2.1
+jobs:
+  run-test:
+    docker:
+      - image: circleci/python:3.6.8
+    steps:
+      - checkout
+      - run: pip install --user --upgrade pip
+      - run: pip install --user -r requirements.txt
+
+workflows:
+  main:
+    jobs:
+      - run-test
