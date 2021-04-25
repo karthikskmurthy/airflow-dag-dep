@@ -1,0 +1,2 @@
+airflow:
+  host: localhost:8080
