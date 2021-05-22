@@ -50,7 +50,7 @@ Once the data has been pushed to neo4j . We can write different cypher queries t
 MATCH(n) return n
 ```
 <p align="center">
-  <img src="./assets/dependency.JPG" width="100%">
+  <img src="./assets/dependency.JPG" width="70%">
 </p>
 
 ```
@@ -58,7 +58,7 @@ MATCH(n:DAG)-[r:depends_on]-(b:DAG)
  return n,r,b
 ```
 <p align="center">
-  <img src="/assets/dependency_1.JPG" width="100%">
+  <img src="/assets/dependency_1.JPG" width="70%">
 </p>
 
 ```
@@ -67,7 +67,7 @@ MATCH(n:DAG)-[r:depends_on]-(b:DAG)
  return n,r,b
 ```
 <p align="center">
-  <img src="assets/dependency_2.JPG" width="100%">
+  <img src="assets/dependency_2.JPG" width="70%">
 </p>
 
 ### Enchancements
