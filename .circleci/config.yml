@@ -7,7 +7,9 @@ jobs:
       - checkout
       - run: pip install --user --upgrade pip
       - run: pip install --user -r requirements.txt
-
+      - run: python -m black --check src/ tests/
+      - run: python -m flake8 --max-line-length=100 --ignore=D100,D104,D103 src/ tests/
+      - run: PYTHONPATH=src:src/api python -m pytest -vv
 workflows:
   main:
     jobs:
