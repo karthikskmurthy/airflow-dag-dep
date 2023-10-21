@@ -1,4 +1,13 @@
 on:
+  workflow_dispatch:
+    inputs:
+      env:
+        description: 'Select the Environment'
+        type: choice
+        required: true
+        options:
+        - SIT
+        - UAT
   push
 
 jobs:
