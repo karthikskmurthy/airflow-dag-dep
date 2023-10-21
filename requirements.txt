@@ -32,7 +32,6 @@ pansi==2020.7.3           # via py2neo
 pathspec==0.8.1           # via black
 pluggy==0.13.1            # via pytest
 prompt-toolkit==2.0.10    # via py2neo
-py2neo==2021.0.1          # via -r requirements.in
 py==1.10.0                # via pytest
 pycodestyle==2.7.0        # via flake8
 pycparser==2.20           # via cffi
