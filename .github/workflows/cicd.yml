@@ -12,5 +12,9 @@ jobs:
         with:
           python-version: '3.8'
           cache: 'pip'
-      - name : Install Requirements
-        run : pip install -r requirements.txt
+      - name: Install Requirements
+        run: pip install -r requirements.txt
+      - name: Lint code
+        run: python -m flake8 --max-line-length=100 --ignore=D100,D104,D103 src/ tests/
+      - name : Format Check
+        run: python -m black --check src/ tests/
