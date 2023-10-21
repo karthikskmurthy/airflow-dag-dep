@@ -1,13 +1,4 @@
 on:
-  workflow_dispatch:
-    inputs:
-      env:
-        description: 'Select the Environment'
-        type: choice
-        required: true
-        options:
-        - SIT
-        - UAT
   push
 
 jobs:
@@ -23,7 +14,9 @@ jobs:
           cache: 'pip'
       - name: Install Requirements
         run: pip install -r requirements.txt
-      - name: Lint code
-        run: python -m flake8 --max-line-length=100 --ignore=D100,D104,D103 src/ tests/
+      - name: Run linter and comment PR
+        uses: matias-martini/flake8-pr-comments-action@main
+        with:
+          github_token: ${{ github.token }}
       - name : Format Check
         run: python -m black --check src/ tests/
