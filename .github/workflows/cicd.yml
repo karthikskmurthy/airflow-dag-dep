@@ -3,8 +3,6 @@ on:
 
 jobs:
   Build:
-    permissions:
-      pull-requests: write
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -12,13 +10,20 @@ jobs:
       - name: Setup python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.11'
+          python-version: '3.8'
           cache: 'pip'
       - name: Install Requirements
         run: pip install -r requirements.txt
-      - name: Run linter and comment PR
-        uses: matias-martini/flake8-pr-comments-action@main
+      - name: Lint code
+        run: |
+          OUTPUT=$(python -m flake8 --max-line-length=100 --ignore=D100,D104,D103 src/ tests/)
+          echo "MESSAGE=$OUTPUT" >> $GITHUB_ENV
+      - name: Post result to PR
+        uses: mshick/add-pr-comment@v1
         with:
-          github_token: ${{ github.token }}
+          message: ${{ env.MESSAGE }}
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          repo-token-user-login: 'github-actions[bot]' # The user.login for temporary GitHub tokens
+          allow-repeats: false # This is the default
       - name : Format Check
         run: python -m black --check src/ tests/
