@@ -16,7 +16,7 @@ jobs:
         run: pip install -r requirements.txt
       - name: Lint code
         run: |
-          OUTPUT=$(python -m flake8 --max-line-length=100 --ignore=D100,D104,D103 src/ tests/)
+          OUTPUT=$(python -m flake8 --max-line-length=100 src/ tests/)
           echo $OUTPUT
           echo "MESSAGE=$OUTPUT" >> $GITHUB_ENV
           echo $env.MESSAGE
