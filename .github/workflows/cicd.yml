@@ -12,18 +12,13 @@ jobs:
       - name: Setup python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.8'
+          python-version: '3.11'
           cache: 'pip'
       - name: Install Requirements
         run: pip install -r requirements.txt
       - name: Run linter and comment PR
-        uses: grantmcconnaughey/lintly-flake8-github-action@v1.0
+        uses: matias-martini/flake8-pr-comments-action@main
         with:
-          # The GitHub API token to create reviews with
-          token: ${{ secrets.GITHUB_TOKEN }}
-          # Fail if "new" violations detected or "any", default "new"
-          failIf: new
-          # Additional arguments to pass to flake8, default "." (current directory)
-          args: "--ignore=E121,E123 ."
+          github_token: ${{ github.token }}
       - name : Format Check
         run: python -m black --check src/ tests/
