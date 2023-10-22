@@ -14,19 +14,12 @@ jobs:
           cache: 'pip'
       - name: Install Requirements
         run: pip install -r requirements.txt
-        run: python -m flake8 --max-line-length=100 src/ tests/
-      - name: Lint code
-        run: |
-          OUTPUT=$(python -m flake8 --max-line-length=100 src/ tests/)
-          echo "$OUTPUT"
-          echo "MESSAGE=$OUTPUT" >> $GITHUB_ENV
-          echo "$env.MESSAGE"
-      - name: Post result to PR
-        uses: mshick/add-pr-comment@v1
-        with:
-          message: ${{ env.MESSAGE }}
-          repo-token: ${{ secrets.GITHUB_TOKEN }}
-          repo-token-user-login: 'github-actions[bot]' # The user.login for temporary GitHub tokens
-          allow-repeats: false # This is the default
       - name : Format Check
         run: python -m black --check src/ tests/
+      - name: Flake8
+        uses: tonybajan/flake8-check-action@v1.3.0
+        with:
+          select: E3,E4,E5,E7,W6,F,B,G0
+          maxlinelength: 50
+          repotoken: ${{ secrets.GITHUB_TOKEN }}
+
