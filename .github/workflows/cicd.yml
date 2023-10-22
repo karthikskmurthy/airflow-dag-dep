@@ -17,7 +17,9 @@ jobs:
       - name: Lint code
         run: |
           OUTPUT=$(python -m flake8 --max-line-length=100 --ignore=D100,D104,D103 src/ tests/)
+          echo $OUTPUT
           echo "MESSAGE=$OUTPUT" >> $GITHUB_ENV
+          echo $env.MESSAGE
       - name: Post result to PR
         uses: mshick/add-pr-comment@v1
         with:
