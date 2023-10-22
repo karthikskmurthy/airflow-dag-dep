@@ -14,9 +14,11 @@ jobs:
           cache: 'pip'
       - name: Install Requirements
         run: pip install -r requirements.txt
+      - name: flake8
+        run: flake8 --max-line-length=100 src/ tests/
       - name: Lint code
         run: |
-          OUTPUT=$(python -m flake8 --max-line-length=100 src/ tests/)
+          OUTPUT=$(flake8 --max-line-length=100 src/ tests/)
           echo "$OUTPUT"
           echo "MESSAGE=$OUTPUT" >> $GITHUB_ENV
           echo "$env.MESSAGE"
