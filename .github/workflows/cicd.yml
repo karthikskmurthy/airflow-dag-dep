@@ -15,11 +15,20 @@ jobs:
       - name: Install Requirements
         run: pip install -r requirements.txt
       - name : Format Check
-        run: python -m black --check src/ tests/
+        run: |
+          BLACKOUTPUT=$(python -m black --check src/ tests/)
+          echo "MESSAGE=$BLACKOUTPUT" >> $GITHUB_ENV
       - name: Flake8
         uses: tonybajan/flake8-check-action@v1.3.0
         with:
           select: E3,E4,E5,E7,W6,F,B,G0
           maxlinelength: 50
           repotoken: ${{ secrets.GITHUB_TOKEN }}
+      - name: Post result to PR
+        uses: mshick/add-pr-comment@v1
+        with:
+          message: ${{ env.MESSAGE }}
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          repo-token-user-login: 'github-actions[bot]' # The user.login for temporary GitHub tokens
+          allow-repeats: false # This is the default
 
